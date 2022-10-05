@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
                 campoFechaNacimiento(),
                 campoJornada(),
                 campoGratuidad(),
+                botonFormulario(),
               ],
             ),
           ),
@@ -49,6 +50,13 @@ class _HomePageState extends State<HomePage> {
         labelText: 'Nombres',
         hintText: 'Escriba su primer y segundo nombre.',
       ),
+      validator: (valor) {
+        if (valor == null || valor.isEmpty) {
+          return 'Indique sus nombres';
+        }
+        return null;
+      }, // si devuelve un string asume que es un error
+      // si esta correcto flutter espera null
     );
   }
 
@@ -58,6 +66,12 @@ class _HomePageState extends State<HomePage> {
         labelText: 'Apellidos',
         hintText: 'Escriba su primer y segundo apellido.',
       ),
+      validator: (valor) {
+        if (valor == null || valor.isEmpty) {
+          return 'Indique sus apellidos';
+        }
+        return null;
+      },
     );
   }
 
@@ -68,6 +82,12 @@ class _HomePageState extends State<HomePage> {
         labelText: 'Email',
         hintText: 'Escriba su dirección de correo.',
       ),
+      validator: (valor) {
+        if (valor == null || valor.isEmpty) {
+          return 'Indique su email';
+        }
+        return null;
+      },
     );
   }
 
@@ -78,6 +98,12 @@ class _HomePageState extends State<HomePage> {
         labelText: 'Cantidad hijos',
         hintText: 'Escriba cuantos hijos tiene.',
       ),
+      validator: (valor) {
+        if (valor == null || valor.isEmpty) {
+          return 'Indique cantidad de hijos';
+        }
+        return null;
+      },
     );
   }
 
@@ -137,6 +163,20 @@ class _HomePageState extends State<HomePage> {
       title: Text('Estudia gratuidad'),
       value: estudiaGratuidad,
       onChanged: (gratuidad) => setState(() => estudiaGratuidad = gratuidad),
+    );
+  }
+
+  Container botonFormulario() {
+    return Container(
+      width: double.infinity,
+      child: ElevatedButton(
+        child: Text('Enviar'),
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            // fromulario está ok, aquí se haría el query a la base de datos
+          }
+        },
+      ),
     );
   }
 }
