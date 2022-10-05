@@ -87,6 +87,7 @@ class _HomePageState extends State<HomePage> {
             initialDate: DateTime.now(), //Para la fecha de hoy
             firstDate: DateTime(1922),
             lastDate: DateTime.now(),
+            locale: Locale('es', 'ES'),
           ).then((fecha) =>
               setState(() => fechaSeleccionada = fecha ?? fechaSeleccionada)),
           // foo = bar ?? foo, si bar es null se queda con el valor de foo
