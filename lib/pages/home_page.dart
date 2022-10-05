@@ -17,6 +17,9 @@ class _HomePageState extends State<HomePage> {
 
   bool estudiaGratuidad = true;
 
+  String emailRegex =
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,6 +88,9 @@ class _HomePageState extends State<HomePage> {
       validator: (valor) {
         if (valor == null || valor.isEmpty) {
           return 'Indique su email';
+        }
+        if (!RegExp(emailRegex).hasMatch(valor)) {
+          return 'Formato de email no válido';
         }
         return null;
       },
