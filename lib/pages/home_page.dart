@@ -9,8 +9,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final formKey = GlobalKey<FormState>();
+
   DateTime fechaSeleccionada = DateTime.now();
   var formatFecha = DateFormat('dd-MM-yyyy');
+
+  String jornadaSeleccionada = 'd';
+
+  bool estudiaGratuidad = true;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,8 @@ class _HomePageState extends State<HomePage> {
                 campoEmail(),
                 campoHijos(),
                 campoFechaNacimiento(),
+                campoJornada(),
+                campoGratuidad(),
               ],
             ),
           ),
@@ -84,16 +91,52 @@ class _HomePageState extends State<HomePage> {
         IconButton(
           onPressed: () => showDatePicker(
             context: context,
-            initialDate: DateTime.now(), //Para la fecha de hoy
+            initialDate: DateTime.now(), // Para la fecha de hoy
             firstDate: DateTime(1922),
             lastDate: DateTime.now(),
-            locale: Locale('es', 'ES'),
+            locale: Locale('es', 'ES'), // Calendario en español
           ).then((fecha) =>
               setState(() => fechaSeleccionada = fecha ?? fechaSeleccionada)),
           // foo = bar ?? foo, si bar es null se queda con el valor de foo
           icon: Icon(MdiIcons.calendar, color: Colors.purple),
         )
       ],
+    );
+  }
+
+  Column campoJornada() {
+    return Column(
+      children: [
+        RadioListTile<String>(
+          value: 'd',
+          groupValue: jornadaSeleccionada,
+          onChanged: (jornada) =>
+              setState(() => jornadaSeleccionada = jornada!),
+          title: Text('Jornada Diurna'),
+        ),
+        RadioListTile<String>(
+          value: 'v',
+          groupValue: jornadaSeleccionada,
+          onChanged: (jornada) =>
+              setState(() => jornadaSeleccionada = jornada!),
+          title: Text('Jornada Vespertina'),
+        ),
+        RadioListTile<String>(
+          value: 'e',
+          groupValue: jornadaSeleccionada,
+          onChanged: (jornada) =>
+              setState(() => jornadaSeleccionada = jornada!),
+          title: Text('Jornada Ejecutiva'),
+        )
+      ],
+    );
+  }
+
+  SwitchListTile campoGratuidad() {
+    return SwitchListTile(
+      title: Text('Estudia gratuidad'),
+      value: estudiaGratuidad,
+      onChanged: (gratuidad) => setState(() => estudiaGratuidad = gratuidad),
     );
   }
 }
